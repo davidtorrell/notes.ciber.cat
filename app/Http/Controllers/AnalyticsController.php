@@ -113,12 +113,12 @@ class AnalyticsController extends Controller
             'username' => 'required|string|exists:users|string',
             'password' => 'required|min:6|max:24|string',
         ], [
-            'username.string' => 'Une erreur est survenue, le champ est peut-être vide',
-            'username.required' => 'Une erreur est survenue, le champ est peut-être vide',
-            'username.exists' => 'Le nom d\'utilisateur n\'existe pas.',
-            'password.min' => 'Le mot de passe fait au moins 6 caractères !',
-            'password.max' => 'Le mot de passe fait maximum 24 caractères !',
-            'password.string' => 'Une erreur est survenue, le champ est peut-être vide!',
+            'username.string' => 'Ha ocurrido un error, el campo puede estar vacío',
+            'username.required' => 'Ha ocurrido un error, el campo puede estar vacío',
+            'username.exists' => 'El usuario no existe.',
+            'password.min' => '¡La contraseña tiene al menos 6 caracteres!',
+            'password.max' => '¡La contraseña tiene un máximo de 24 caracteres!',
+            'password.string' => 'Ha ocurrido un error, el campo puede estar vacío!',
         ]);
 
         $credentials = request()->only('username', 'password');
@@ -128,7 +128,7 @@ class AnalyticsController extends Controller
 
             return redirect()->route('analytics.index');
         } else {
-            return back()->withErrors(['bad_creds' => 'Identifiants incorrects']);
+            return back()->withErrors(['bad_creds' => 'credenciales incorrectas']);
         }
     }
 }

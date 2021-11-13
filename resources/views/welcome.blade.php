@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="PandoreNote, des notes chiffrées et autodestructrice">
+    <meta name="description" content="ciberNotes, notas encriptadas y autodestructivas">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <title>PandoreNote - Notes chiffrées</title>
+    <title>ciberNotes - Notas encriptadas</title>
 </head>
 
 
@@ -25,7 +25,7 @@
                 <div class="ml-6">
                     <div class="text-center md:text-left">
                         <h1 class="inline -ml-4 text-2xl font-extrabold md:ml-0 font-default lg:text-5xl"><a
-                                href="{{ route('home') }}" class="cursor-pointer">PandoreNote</a>
+                                href="{{ route('home') }}" class="cursor-pointer">ciberNotes</a>
                         </h1>
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="lg:h-12 lg:w-12 w-8 h-8 -ml-0.5 -mt-4 lg:-mt-7 inline" fill="none" viewBox="0 0 24 24"
@@ -37,7 +37,7 @@
 
                     <div class="mt-1 text-center md:text-lg md:text-left">
                         <h3 class="font-default md:ml-0.5 -ml-4 font-semibold">
-                            Notes chiffrées et auto-destructrices <img src="{{ asset('assets/leaf.png') }}"
+                            Notas encriptadas y autodestructivas <img src="{{ asset('assets/leaf.png') }}"
                                 class="inline w-6 h-6 -mt-2" alt="leaficon">
                         </h3>
                     </div>
@@ -54,12 +54,15 @@
             <form action="{{ route('note.create') }}" method="POST">
                 @csrf
                 @if (session('success'))
-                    <div class="py-2 text-green-500">
+                    <div class="py-2 pl-3 text-green-500">
                         <p class="font-default">
-                            Succès ! Voici le lien de la note : {{ session('success') }}
+                            ¡Éxito! <br/> Aquí está el enlace de la nota: <span class="underline text-white" id="pwd_spn">{{ session('success') }}</span>
+                        <br/>
+                            <button class="bg-green-600 text-white mt-3 py-2 px-4 text-center mb-2 focus:outline-none align-middle px-4 font-default cursor-pointer pt-1.5 pb-2 rounded" type="button" id="cp_btn">Copiar</button>
                         </p>
+                   
                     </div>
-                @endif
+                @else
                 <div class="text-lg text-white">
                     <textarea required name="text" style="background-color : #585858"
                         class="w-11/12 px-4 py-2 font-semibold rounded resize-none focus:outline-none h-96"
@@ -75,8 +78,7 @@
                 @enderror
 
                 <div class="mt-4">
-                    <label for="password_input" class="px-2 text-lg font-semibold text-white md:px-0 font-default">Mot
-                        de passe (Optionnel)
+                    <label for="password_input" class="px-2 text-lg font-semibold text-white md:px-0 font-default">Contraseña (opcional)
                     </label>
                     <br>
 
@@ -94,35 +96,51 @@
                 </div>
                 <div class="mt-4">
                     <label for="expiration_datet" class="px-2 text-lg font-semibold text-white md:px-0 font-default">
-                        Temps d'expiration <img class="inline w-6 h-6 -mt-1" src="{{ asset('assets/sablier.png') }}"
+                        Tiempo de expiración <img class="inline w-6 h-6 -mt-1" src="{{ asset('assets/sablier.png') }}"
                             alt="">
                     </label>
                     <br>
                     <div class="mt-2"></div>
                     <select name="expiration_date" id="expiration_date"
-                        class="px-2 py-1 m-auto my-2 text-white rounded outline-none appearance-none font-default lg:py-0 lg:my-0 focus:outline-none"
+                        class="px-2 py-1 m-auto my-2 text-white rounded outline-none font-default lg:py-0 lg:my-0 focus:outline-none"
                         style="background-color : #585858">
-                        <option value="never" selected>Jamais</option>
-                        <option value="1_hour">Une heure</option>
-                        <option value="1_day">Un jour</option>
-                        <option value="1_week">Une semaine</option>
-                        <option value="1_month">Un mois</option>
+                        <option value="never" selected>Nunca</option>
+                        <option value="1_hour">Una hora</option>
+                        <option value="1_day">Un día</option>
+                        <option value="1_week">Una semana</option>
+                        <option value="1_month">Un mes</option>
                     </select>
 
                 </div>
                 <div id="submit" class="mt-12 text-white">
-                    <input type="submit" style="background-color : #585858"
-                        class="text-center mb-2 focus:outline-none align-middle px-4 font-default font-semibold cursor-pointer pt-1.5 pb-2 text-2xl rounded"
-                        value="Créer">
+                    <input type="submit" class="bg-red-800 text-center mb-2 focus:outline-none align-middle px-4 font-default cursor-pointer pt-1.5 pb-2 rounded"
+                        value="Crear">
                 </div>
+                @endif
             </form>
         </main>
         <footer id="footer" class="w-full mt-8 mb-4 text-center text-white font-default">
-            <p>Fait avec ❤️ par <a href="https://github.com/Coroxx">Corox</a></p>
-            <p>PandoreNote {{ $version }} - <a class="underline"
-                    href="https://github.com/Coroxx/pandorenote">Github</a></p>
+            <p>developed by <a href="https://ciber.cat">ciber</a></p>
         </footer>
     </div>
+    @if (session('success'))
+    <script>
+        document.getElementById("cp_btn").addEventListener("click", copy_password);
+
+        function copy_password() {
+            var copyText = document.getElementById("pwd_spn");
+            var textArea = document.createElement("textarea");
+            textArea.value = copyText.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("Copy");
+            textArea.remove();
+
+            return false;
+        }
+    </script>
+    @endif
+
 </body>
 
 </html>

@@ -23,12 +23,12 @@ class MainController extends Controller
                 'encrypt_password' => 'string|min:6|max:100|nullable',
             ],
             [
-                'text.required' => 'Ce champ est obligatoire',
-                'text.string' => 'Le texte est vide ou une une erreur est survenue',
-                'text.max' => 'La limite est de 20 000 caractères.',
-                'encrypt_password.string' => 'Désolé une erreur est survenue',
-                'encrypt_password.min' => 'Le mot de passe doit faire au moins 6 caractères',
-                'encrypt_password.max' => 'Le mot de passe ne peux pas faire plus de 100 caractères, mollo l\'asticot !'
+                'text.required' => 'este campo es obligatorio',
+                'text.string' => 'El texto está vacío o se ha producido un error.',
+                'text.max' => 'El límite es de 20.000 caracteres.',
+                'encrypt_password.string' => 'Disculpe, ocurrió un error.',
+                'encrypt_password.min' => 'La contraseña debe contener 6 caracteres como mínimo',
+                'encrypt_password.max' => 'La contraseña no puede tener más de 100 caracteres.'
             ]
         );
 
@@ -108,15 +108,15 @@ class MainController extends Controller
         request()->validate([
             'decrypt_password' => 'string|max:100'
         ], [
-            'decrypt_password.string' => 'Le champ est vide ou une erreur est survenue',
-            'decrypt_password.max' => 'Le mot de passe ne peut pas faire plus de 100 caractères'
+            'decrypt_password.string' => 'El campo está vacío o se ha producido un error.',
+            'decrypt_password.max' => 'La contraseña no puede tener más de 100 caracteres.'
         ]);
 
         $note = Note::where('slug', $slug)->get();
 
 
         if ($note->isEmpty()) {
-            return back()->withErrors(['404' => 'Désolé cette note n\'existe pas ou elle a déjà été lue']);
+            return back()->withErrors(['404' => 'Lo siento, esta nota no existe o ya ha sido leída.']);
         } else {
             $note = $note->first();
         }
@@ -125,7 +125,7 @@ class MainController extends Controller
             if (Hash::check(request()->decrypt_password, $note->password)) {
                 $note->text = Crypt::decryptString($note->text);
             } else {
-                return back()->withErrors(['bad_password' => 'Mot de passe incorrect']);
+                return back()->withErrors(['bad_password' => 'código incorrecto']);
             }
         } else {
             $note->text = Crypt::decryptString($note->text);

@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="ciberNotes, notas encriptadas y autodestructivas">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <title>PandoreNote - Notes chiffrées</title>
+    <title>ciberNotes - Notas encriptadas</title>
 </head>
 
 <body class="" style="background-color : #1d1d1d">
@@ -23,7 +24,7 @@
                 <div class="ml-6">
                     <div class="text-center md:text-left">
                         <h1 class="inline -ml-4 text-2xl font-extrabold md:ml-0 font-default lg:text-5xl"><a
-                                href="{{ route('home') }}" class="cursor-pointer">PandoreNote</a>
+                                href="{{ route('home') }}" class="cursor-pointer">ciberNotes</a>
                         </h1>
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="lg:h-12 lg:w-12 w-8 h-8 -ml-0.5 -mt-4 lg:-mt-7 inline" fill="none"
@@ -35,7 +36,7 @@
 
                     <div class="mt-1 text-center md:text-lg md:text-left">
                         <h3 class="font-default md:ml-0.5 -ml-4 font-semibold">
-                            Notes chiffrées et autodestructrice <img src="{{ asset('assets/leaf.png') }}"
+                            Notas encriptadas y autodestructivas <img src="{{ asset('assets/leaf.png') }}"
                                 class="inline w-6 h-6 -mt-2" alt="leaficon">
                         </h3>
                     </div>
@@ -52,7 +53,7 @@
             @if (!isset($note))
                 <div class="text-red-500 py-2 text-xl px-2 md:px-0 md:ml-2.5">
                     <p class="font-default">
-                        Désolé cette note n'existe pas, elle a déjà été lue ou sa date d'expiration est dépassée
+                        Lo sentimos, esta nota no existe, ya ha sido leída o su fecha de caducidad ha pasado.
                     </p>
                 </div>
             @else
@@ -60,9 +61,7 @@
                     @csrf
                     <div class="ml-2.5 mt-10">
                         @if ($password)
-                            <h2 class="px-2 text-xl font-bold text-white font-default md:px-0">Entrez le mot de passe de
-                                la
-                                note</h2>
+                            <h2 class="px-2 text-xl font-bold text-white font-default md:px-0">Ingrese la contraseña de la nota</h2>
                             <input type="password" required
                                 class="rounded-sm focus:outline-none text-white px-2 py-0.5 w-64 mt-2"
                                 style="background-color : #585858" name="decrypt_password">
@@ -77,20 +76,18 @@
 
                             @endif
                         @endif
-                        <input type="submit" style="background-color : #585858"
-                            class="text-center focus:outline-none text-white align-middle px-4 font-default font-semibold cursor-pointer pt-1.5 pb-2 text-xl rounded"
-                            value="Déchiffrer" onclick="disableButton(this)">
-                        <p class="px-2 mt-8 text-white font-default md:px-0">Après avoir déchiffré cette note, elle
-                            sera
-                            supprimée de
-                            la
-                            base
-                            de donnée</p>
+                        <input type="submit" 
+                           class="bg-red-800 text-center focus:outline-none text-white align-middle px-4 font-default font-semibold cursor-pointer pt-1.5 pb-2 text-xl rounded"
+                            value="Descifrar" onclick="disableButton(this)">
+                        <p class="px-2 mt-8 text-white font-default md:px-0">Después de descifrar esta nota, se eliminará de la base de datos.</p>
 
                     </div>
                 </form>
             @endif
         </main>
+        <footer id="footer" class="w-full mt-8 mb-4 text-center text-white font-default">
+            <p>developed by <a href="https://ciber.cat">ciber</a></p>
+        </footer>
     </div>
 
     <script>
